@@ -1,10 +1,12 @@
 from urllib import response
 from django.urls import reverse
 from django.test import TestCase, SimpleTestCase
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
+
+from news.models import Article
 
 # Create your tests here.
-class HomePageTests(SimpleTestCase):
+class HomePageTests(TestCase):
     def test_home_page_status_code(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
@@ -42,3 +44,24 @@ class SignupPageTests(TestCase):
         self.assertEqual(get_user_model().objects.all().count(), 1)
         self.assertEqual(get_user_model().objects.all()[0].username, self.username)
         self.assertEqual(get_user_model().objects.all()[0].email, self.email)
+
+
+class NewsListTests(TestCase):
+    def test_news_list_status_code(self):
+        response = self.client.get('/news/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_news_list_url_by_name(self):
+        response = self.client.get(reverse('news_list'))
+        return self.assertEqual(response.status_code, 200)
+
+    def test_news_list_uses_correct_template(self):
+        response = self.client.get(reverse('news_list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'news_list.html')
+
+
+class NewsCreateTests(TestCase):
+    def test_news_create_not_authenticated_status_code(self):
+        response = self.client.get(f'/news/create/')
+        self.assertEqual(response.status_code, 302)

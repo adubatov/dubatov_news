@@ -35,7 +35,9 @@ href="{% url 'password_change'%}">Change password</a> <div class="dropdown-divid
 <a href="{% url 'signup' %}" class="btn btn-primary ml-2"> Sign up</a>
 </form> {% endif %}
 </div> </nav>
-<div class="container"> {% block content %}
+<div class="container overflow-hidden py-3"> 
+{% block content %}
+
 {% endblock content %}
 </div>
 <!-- Optional JavaScript -->

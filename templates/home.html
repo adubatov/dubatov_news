@@ -3,13 +3,10 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-    <h1>Newspaper project</h1>
-    {% if user.is_authenticated %}
-        <p>Hi, {{ user.username }}</p>
-        <a href="{% url 'logout' %}">Log Out</a>
-    {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'signup' %}">Signup</a>
-    {% endif %}
+<div class="jumbotron">
+    <h1 class="display-4">Newspaper project</h1>
+    <p class="lead">Educational news project created in Django</p>
+    <a class="btn btn-primary" href="{% url 'news_list' %}" role="button">See All News</a>
+</div>
+
 {% endblock content %}
