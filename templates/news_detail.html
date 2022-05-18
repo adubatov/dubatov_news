@@ -3,16 +3,28 @@
 {% block title %}{{ object.title }}{% endblock title %}
 
 {% block content %}
-<div class="article-entry">
-    <h2>{{ object.title }}</h2>
-    <p>Автор: {{ object.author }} | {{ object.pub_date }}</p>
-    <p>{{ object.body }}</p>
+<div class="card">
+    <div class="card-header">
+        <h2>{{ object.title }}</h2>
+        <p>Автор: <a class="link-secondary" href="{% url 'user_detail' object.author.pk %}">{{ object.author }}</a> | {{ object.pub_date }}</p>
+    </div>
+    <div class="card-body">
+        <p>{{ object.body }}</p>
+        <p>
+            <a href="{% url 'news_update' article.pk %}">Edit</a> | 
+            <a href="{% url 'news_delete' article.pk %}">Delete</a>
+        </p>
+    </div>
+    <div class="card-footer text-muted">
+        {% for comment in object.comments.all %}
+            <p>
+                <span class="font-weight-bold"><a href="{% url 'user_detail' object.author.pk %}">{{ comment.author }}</a></span>
+                {{ comment }}<br>
+                <small>{{ comment.pub_date }}</small>
+            </p>
+        {% endfor %}
+    </div>
 </div>
-
-<p>
-    <a href="{% url 'news_update' article.pk %}">Edit</a> | 
-    <a href="{% url 'news_delete' article.pk %}">Delete</a>
-</p>
-<p>Back to <a href="{% url 'news_list' %}">all articles</a></p>
+<p class="fs-1">Back to <a href="{% url 'news_list' %}">all articles</a></p>
 
 {% endblock content %}
