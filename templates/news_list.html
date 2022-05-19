@@ -2,6 +2,8 @@
 <!-- templates/article_list.html -->
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}Articles{% endblock title %}
 
 {% block content %}
@@ -37,7 +39,7 @@
                             {{ article.comments.count }}
                             </a>
                         </div>
-                        {% if user.is_authenticated and user == article.author %}
+                        {% if user == article.author and user.is_authenticated %}
                         <div class="col-2 ">
                             <a href="{% url 'news_update' article.pk %}">Edit</a> |
                             <a href="{% url 'news_delete' article.pk %}">Delete</a>
@@ -48,7 +50,8 @@
 
                 <div class="card-footer collapse" id="collapse{{ article.pk }}">
                     {% for comment in article.comments.all %}
-                    <div class="row mx-3 my-3">
+                    <div class="row mx-3 my-3 border-bottom">
+                        <div class="col">
                         <div class="row">
                             <a class="text-muted" href="{% url 'user_detail' comment.author.pk %}">{{ comment.author }}</a>
                         </div>
@@ -57,6 +60,7 @@
                         </div>
                         <div class="row">
                             <small class="text-muted">{{ comment.pub_date }}</small>
+                        </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -67,14 +71,15 @@
                     </div>
                     <div class="row mx-3">
                         <div class=col>
-                            <form class="" action="/new_comment/" method="post">
+                            <form class="" action="" method="post">
                                 {% csrf_token %}
-                                <div class="mb-3 my-3">
+                                {{ form|crispy }}
+                                {% comment %} <div class="mb-3 my-3">
                                     <textarea class="form-control" rows="3"></textarea>
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="mb-3">
                                     <button class="btn btn-primary">Comment</button>
-                                </div>
+                                </div> 
                             </form>
                         </div>
                     </div>
