@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import (
     TemplateView, 

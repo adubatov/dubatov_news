@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}Update profile{% endblock title %}
+
+{% block content %}
+<h1 class="display-4">Update your profile</h1>
+<div class="row border">
+    <div class="col-sm">
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-success" type="submit" value="Save">
+    <a class="btn btn-secondary" href="{% url 'user_detail' user.pk %}">Cancel</a>
+</form>
+</div>
+</div>
+{% endblock content %}

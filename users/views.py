@@ -1,9 +1,7 @@
-from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, UpdateView
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model, get_user
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
-from requests import request
 
 from .forms import CustomUserCreationForm
 
